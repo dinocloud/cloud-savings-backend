@@ -31,7 +31,7 @@ class UsersView(FlaskView):
 
     def post(self):
         '''Insert an user'''
-        #validate_access(request.headers.get("Authorization"), ADMIN_USER)
+        validate_access(request.headers.get("Authorization"), ADMIN_USER)
         data = request.json
         username = validate_param(data.get("username", None), [(TYPE_VALIDATOR, unicode)])
         password = validate_param(data.get("password", None), [(TYPE_VALIDATOR, unicode)])

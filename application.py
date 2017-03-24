@@ -19,6 +19,7 @@ def handle_error(e):
 api_prefix = "/api/v1/"
 
 UsersView.register(application, route_prefix=api_prefix)
+AwsAccountView.register(application, route_prefix=api_prefix)
 
 if __name__ == '__main__':
     with application.app_context():

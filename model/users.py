@@ -15,6 +15,8 @@ class User(db.Model):
     status = db.relationship("UserStatus", foreign_keys=[idStatus], cascade="merge")
     devices = db.relationship("Device", uselist=True, backref=db.backref('user_device'),
                                cascade="save-update, merge, delete")
+    aws_accounts = db.relationship("AwsAccount", uselist=True, backref=db.backref('user_account'),
+                                   cascade="save-update, merge, delete")
 
     def __init__(self, username=None, password='', email=None, role_id=None, status_id=None, registered=None):
         self.username = username
@@ -65,4 +67,20 @@ class Device(db.Model):
 
     def __init__(self, idRegistration=None, idUser=None):
         self.idRegistration = idRegistration
+        self.idUser = idUser
+
+
+class AwsAccount(db.Model):
+    __tablename__ = "AwsAccount"
+    id = db.Column(db.Integer, primary_key=True)
+    access_key = db.Column(db.String(40), unique=True, nullable=False)
+    fancy_name = db.Column(db.String(50), unique=True, nullable=False)
+    secret_key = db.Column(db.String(100), unique=True, nullable=False)
+    idUser = db.Column(db.Integer, db.ForeignKey('User.id'))
+    user = db.relationship("User", foreign_keys=[idUser], cascade="merge")
+
+    def __init__(self, access_key=None, secret_key=None, fancy_name=None, idUser=None):
+        self.access_key = access_key
+        self.secret_key = secret_key
+        self.fancy_name = fancy_name
         self.idUser = idUser
