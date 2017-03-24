@@ -1,0 +1,3 @@
+cloud_savings_env/*
+.idea/*
+**/*.pyc
