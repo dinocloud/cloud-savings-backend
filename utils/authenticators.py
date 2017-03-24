@@ -17,7 +17,7 @@ USER_ROLES = {
 
 USER_STATUS = {
     "pending" : 1,
-    "active" : 2,
+    "ready" : 2,
     "deleted" : 3
 }
 

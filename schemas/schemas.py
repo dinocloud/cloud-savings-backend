@@ -18,12 +18,12 @@ class DeviceSchema(Schema):
 
 class AwsAccountSchema(Schema):
     id = fields.Integer()
-    fancy_name = fields.Integer()
+    fancy_name = fields.String()
 
 
 class AwsAccountWithKeysSchema(Schema):
     id = fields.Integer()
-    fancy_name = fields.Integer()
+    fancy_name = fields.String()
     access_key = fields.String()
     secret_key = fields.String()
 
