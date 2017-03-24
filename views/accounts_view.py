@@ -2,11 +2,8 @@ from flask import jsonify, request, send_file
 from flask_classy import FlaskView, route
 from model import *
 from schemas import *
-from utils.constants import ID_ADMIN_ROLE
 from utils.validators import *
 from utils.authenticators import *
-from passlib.apps import custom_app_context as pwd_context
-import datetime
 
 
 class AwsAccountView(FlaskView):

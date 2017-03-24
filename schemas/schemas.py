@@ -65,3 +65,47 @@ class UserSchema(Schema):
     registered = fields.DateTime()
     status = fields.Nested(UserStatusSchema())
     role = fields.Nested(UserRoleSchema())
+
+
+class RuleActionSchema(Schema):
+    id = fields.Integer()
+    description = fields.String()
+
+
+class RuleStatusSchema(Schema):
+    id = fields.Integer()
+    description = fields.String()
+
+
+class RuleTypeSchema(Schema):
+    id = fields.Integer()
+    description = fields.String()
+
+
+class RuleFilterKeySchema(Schema):
+    id = fields.Integer()
+    description = fields.String()
+
+
+class RuleFilterSchema(Schema):
+    id = fields.Integer()
+    key = fields.Nested(RuleFilterKeySchema())
+    value = fields.String()
+
+
+class RuleTimestampSchema(Schema):
+    id = fields.Integer()
+    dayOfWeek = fields.String()
+    timestamp = fields.String()
+
+
+class RuleSchema(Schema):
+    id = fields.Integer()
+    name = fields.String()
+    description = fields.String()
+    awsAccount = fields.Nested(AwsAccountSchema())
+    action = fields.Nested(RuleActionSchema())
+    filters = fields.List(fields.Nested(RuleFilterSchema()))
+    status = fields.Nested(RuleStatusSchema())
+    type = fields.Nested(RuleTypeSchema())
+    timestamps = fields.List(fields.Nested(RuleTimestampSchema()))
