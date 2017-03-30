@@ -4,6 +4,7 @@ from model import *
 from schemas import *
 from utils.validators import *
 from utils.authenticators import *
+from utils.encryption import encrypt
 
 
 class AwsAccountView(FlaskView):
@@ -40,8 +41,8 @@ class AwsAccountView(FlaskView):
         '''Insert an aws account'''
         data = request.json
         fancy_name = validate_param(data.get("fancy_name", None), [(TYPE_VALIDATOR, unicode)], required=True)
-        access_key = validate_param(data.get("access_key", None), [(TYPE_VALIDATOR, unicode)], required=True)
-        secret_key = validate_param(data.get("secret_key", None), [(TYPE_VALIDATOR, unicode)], required=True)
+        access_key = encrypt(validate_param(data.get("access_key", None), [(TYPE_VALIDATOR, unicode)], required=True))
+        secret_key = encrypt(validate_param(data.get("secret_key", None), [(TYPE_VALIDATOR, unicode)], required=True))
         idUser = validate_param(data.get("user", {}).get("id", None), [(TYPE_VALIDATOR, int)], required=True)
         validate_access(request.headers.get("Authorization"), [ADMIN_USER, MYSELF_USER], id_myself=idUser)
         account = AwsAccount(fancy_name=fancy_name, access_key=access_key, secret_key=secret_key, idUser=idUser)

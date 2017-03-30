@@ -7,3 +7,4 @@ class DBSettings:
     DB_USER = os.getenv("RDS_USERNAME","root")
     DB_PASSWORD = os.getenv("RDS_PASSWORD","")
     SQLALCHEMY_DATABASE_URI = "{0}://{1}:{2}@{3}/{4}".format(DB_ENGINE, DB_USER, DB_PASSWORD, DB_HOST, DB_NAME)
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = False

@@ -73,9 +73,9 @@ class Device(db.Model):
 class AwsAccount(db.Model):
     __tablename__ = "AwsAccount"
     id = db.Column(db.Integer, primary_key=True)
-    access_key = db.Column(db.String(40), unique=True, nullable=False)
+    access_key = db.Column(db.String(400), unique=True, nullable=False)
     fancy_name = db.Column(db.String(50), unique=True, nullable=False)
-    secret_key = db.Column(db.String(100), unique=True, nullable=False)
+    secret_key = db.Column(db.String(400), unique=True, nullable=False)
     idUser = db.Column(db.Integer, db.ForeignKey('User.id'))
     user = db.relationship("User", foreign_keys=[idUser], cascade="merge")
 

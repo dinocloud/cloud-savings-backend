@@ -5,6 +5,7 @@ import os
 
 application = create_app()
 
+
 @application.errorhandler(401)
 @application.errorhandler(404)
 @application.errorhandler(403)
@@ -15,6 +16,16 @@ def handle_error(e):
     if isinstance(e, HTTPException):
         code = e.code
     return jsonify(error=str(e), message=e.description), code
+
+
+@application.teardown_appcontext
+def shutdown_session(response_or_exc):
+    try:
+        if response_or_exc is None:
+            db.session.commit()
+    finally:
+        db.session.remove()
+    return response_or_exc
 
 api_prefix = "/api/v1/"
 

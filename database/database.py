@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from utils.settings import DBSettings
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, create_session
+from flask_cors import CORS, cross_origin
 
 db = SQLAlchemy()
 
@@ -20,6 +21,7 @@ def init_engine(uri, **kwargs):
 
 def create_app():
     application = Flask(__name__)
+    CORS(application)
     application.config.from_object(DBSettings)
     init_engine(application.config['SQLALCHEMY_DATABASE_URI'])
     db = SQLAlchemy()
